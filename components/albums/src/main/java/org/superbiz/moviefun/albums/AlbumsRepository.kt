@@ -21,31 +21,28 @@ package org.superbiz.moviefun.albums
 
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
-
 import javax.persistence.EntityManager
-import javax.persistence.PersistenceContext
-import javax.persistence.criteria.CriteriaQuery
 
 @Repository
 class AlbumsRepository(val entityManager: EntityManager) {
 
     val albums: List<Album>
         get() {
-            val cq = entityManager!!.criteriaBuilder.createQuery(Album::class.java)
+            val cq = entityManager.criteriaBuilder.createQuery(Album::class.java)
             cq.select(cq.from(Album::class.java))
             return entityManager.createQuery(cq).resultList
         }
 
     @Transactional
-    fun addAlbum(album: Album) = entityManager!!.persist(album)
+    fun addAlbum(album: Album) = entityManager.persist(album)
 
-    fun find(id: Long): Album = entityManager!!.find(Album::class.java, id)
+    fun find(id: Long): Album = entityManager.find(Album::class.java, id)
 
     @Transactional
-    fun deleteAlbum(album: Album) = entityManager!!.remove(album)
+    fun deleteAlbum(album: Album) = entityManager.remove(album)
 
     @Transactional
     fun updateAlbum(album: Album) {
-        entityManager!!.merge(album)
+        entityManager.merge(album)
     }
 }

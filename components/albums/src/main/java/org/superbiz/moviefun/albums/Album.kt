@@ -19,11 +19,11 @@ package org.superbiz.moviefun.albums
  * limitations under the License.
  */
 
+import java.io.Serializable
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
-import java.io.Serializable
 
 @Entity
 class Album : Serializable {
@@ -37,8 +37,6 @@ class Album : Serializable {
     var year: Int = 0
     var rating: Int = 0
 
-    constructor() {}
-
     constructor(artist: String, title: String, year: Int, rating: Int) {
         this.artist = artist
         this.title = title
@@ -51,7 +49,7 @@ class Album : Serializable {
     fun isEquivalent(other: Album): Boolean {
         if (year != other.year) return false
         if (!isEqual(title, other.title)) return false
-        return if (!isEqual(artist, other.artist)) false else true
+        return isEqual(artist, other.artist)
 
     }
 
